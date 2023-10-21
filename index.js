@@ -32,16 +32,38 @@ app.post("/create", async (req, res) => {
         req.body.time,
     )
 
-    if(status){
+    if (status) {
         res.redirect("/")
-    }else{
+    } else {
         res.send("Ocorreu uma falha!")
     }
 })
 
-app.get("/agendamentos", async(req, res) => {
+app.get("/agendamentos", async (req, res) => {
     const consultas = await AppointmentService.GetAll(false);
     res.json(consultas);
+})
+
+app.get("/event/:id", async (req, res) => {
+    const appointment = await AppointmentService.GetById(req.params.id);
+    res.render("event", { appo: appointment });
+})
+
+app.post("/finish", async (req, res) => {
+    const id = req.body.id;
+    const result = await AppointmentService.Finish(id);
+
+    res.redirect("/");
+})
+
+app.get("/list", async (req, res) => {
+    const appos = await AppointmentService.GetAll(true);
+    res.render("list", { appos });
+})
+
+app.get("/searchresult", async (req, res) => {
+    const appos = await AppointmentService.Search(req.query.search)
+    res.render("list", { appos });
 })
 
 app.listen(8080, () => {

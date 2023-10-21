@@ -20,6 +20,10 @@
     const calendar = new FullCalendar.Calendar(element, {
         initialView: "dayGridMonth",
         locale: 'pt-br',
+        events: 'agendamentos',
+        eventClick: function(info){
+            window.location.href = '/event/' + info.event.id;
+        }
     });
 
     calendar.render();

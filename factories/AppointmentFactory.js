@@ -12,7 +12,6 @@ class AppointmentFactory {
 
         // Cria um novo objeto Date com os valores extraídos
         const startDate = new Date(year, month, day, hour, minutes, 0, 0);
-        startDate.setHours(startDate.getHours() - 3);
 
         // Cria um objeto de compromisso (appointment) com os dados processados
         const appo = {
